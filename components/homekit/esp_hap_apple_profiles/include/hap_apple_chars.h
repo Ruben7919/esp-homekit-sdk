@@ -452,7 +452,7 @@ hap_char_t *hap_char_target_door_state_create(uint8_t targ_door_state);
  * @return Pointer to the characteristic object on success
  * @return NULL on failure
  */
-hap_char_t *hap_char_target_heating_cooling_state_create(uint8_t targ_heating_cooling_state);
+hap_char_t *hap_char_target_heating_cooling_state_create(uint8_t targ_heating_cooling_state, uint8_t systemType);
 
 /** Target Relative Humidity Characteristic
  *

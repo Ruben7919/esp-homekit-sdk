@@ -351,15 +351,20 @@ hap_char_t *hap_char_target_door_state_create(uint8_t targ_door_state)
 }
 
 /* Char: Target Heating Cooling State */
-hap_char_t *hap_char_target_heating_cooling_state_create(uint8_t targ_heating_cooling_state)
+hap_char_t *hap_char_target_heating_cooling_state_create(uint8_t targ_heating_cooling_state, uint8_t systemType)
 {
     hap_char_t *hc = hap_char_uint8_create(HAP_CHAR_UUID_TARGET_HEATING_COOLING_STATE,
                                            HAP_CHAR_PERM_PR | HAP_CHAR_PERM_PW | HAP_CHAR_PERM_EV, targ_heating_cooling_state);
     if (!hc) {
         return NULL;
     }
-
-    hap_char_int_set_constraints(hc, 0, 3, 1);
+    //COOL ONLY
+    if(systemType == 2){
+        hap_char_int_set_constraints(hc, 0, 2, 2);
+    }
+    else{
+        hap_char_int_set_constraints(hc, 0, systemType, 1);
+    }
 
     return hc;
 }

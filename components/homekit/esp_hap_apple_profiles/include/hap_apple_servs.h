@@ -199,11 +199,12 @@ hap_serv_t *hap_serv_switch_create(bool on);
  * @param[in] curr_temp Initial value of Current Temperature characteristic
  * @param[in] targ_temp Initial value of Target Temperature  characteristic
  * @param[in] temp_disp_units Initial value of Temperature Display Units characteristic
+ * @param[in] systemType Determines the system type(COOL_ONLY, HEATONLY, AUTO)
  *
  * @return Pointer to the service object on success
  * @return NULL on failure
  */
-hap_serv_t *hap_serv_thermostat_create(uint8_t curr_heating_cooling_state, uint8_t targ_heating_cooling_state, float curr_temp, float targ_temp, uint8_t temp_disp_units);
+hap_serv_t *hap_serv_thermostat_create(uint8_t curr_heating_cooling_state, uint8_t targ_heating_cooling_state, float curr_temp, float targ_temp, uint8_t temp_disp_units, uint8_t systemType);
 
 /** Create Air Quality Sensor Service
  *

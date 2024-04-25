@@ -203,7 +203,7 @@ err:
 }
 
 hap_serv_t *hap_serv_thermostat_create(uint8_t curr_heating_cooling_state, uint8_t targ_heating_cooling_state, float curr_temp,
-                                       float targ_temp, uint8_t temp_disp_units)
+                                       float targ_temp, uint8_t temp_disp_units, uint8_t systemType)
 {
     hap_serv_t *hs = hap_serv_create(HAP_SERV_UUID_THERMOSTAT);
     if (!hs) {
@@ -212,7 +212,7 @@ hap_serv_t *hap_serv_thermostat_create(uint8_t curr_heating_cooling_state, uint8
     if (hap_serv_add_char(hs, hap_char_current_heating_cooling_state_create(curr_heating_cooling_state)) != HAP_SUCCESS) {
         goto err;
     }
-    if (hap_serv_add_char(hs, hap_char_target_heating_cooling_state_create(targ_heating_cooling_state)) != HAP_SUCCESS) {
+    if (hap_serv_add_char(hs, hap_char_target_heating_cooling_state_create(targ_heating_cooling_state, systemType)) != HAP_SUCCESS) {
         goto err;
     }
     if (hap_serv_add_char(hs, hap_char_current_temperature_create(curr_temp)) != HAP_SUCCESS) {
