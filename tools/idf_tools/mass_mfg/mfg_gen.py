@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 
-from __future__ import print_function
 from builtins import range
 from future.moves.itertools import zip_longest
 import sys
@@ -406,7 +405,7 @@ def main(input_config_file=None,input_values_file=None,target_file_name_prefix=N
             for config_data in config_file_reader:
                 for data in config_data:
                     empty_line = data.strip()
-                    if empty_line is '':
+                    if empty_line == '':
                         is_empty_line = True
                     else:
                         is_empty_line = False
@@ -439,7 +438,7 @@ def main(input_config_file=None,input_values_file=None,target_file_name_prefix=N
             for values_data in values_file_reader:
                 for data in values_data:
                     empty_line = data.strip()
-                    if empty_line is '':
+                    if empty_line == '':
                         is_empty_line = True
                     else:
                         is_empty_line = False

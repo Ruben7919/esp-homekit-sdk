@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import print_function
 from future.moves.itertools import zip_longest
 from builtins import range
 import os
@@ -258,39 +257,35 @@ def add_homekit_data_to_file(input_config_file,input_values_file,keys_in_values_
 
         hap_setup_found = False
 
-        configfile = open(target_config_file, conf_file_mode)
-        valuesfile = open(target_values_file, 'w')
 
-        if conf_file_mode == 'a+':
-            configfile.seek(0)
-            config_file_reader = csv.reader(configfile, delimiter=',')
-            for config_data in config_file_reader:
-                if 'hap_setup' in config_data:
-                    hap_setup_found = True
-                    break
+        with open(target_config_file, conf_file_mode, newline='') as configfile:
+            if conf_file_mode == 'a+':
+                configfile.seek(0)
+                config_file_reader = csv.reader(configfile, delimiter=',')
+                for config_data in config_file_reader:
+                    if 'hap_setup' in config_data:
+                        hap_setup_found = True
+                        break
 
-        if not hap_setup_found:
-            configfile.write(u"hap_setup,namespace,\n")
-        
-        configfile.write(u"setup_id,data,binary\n")
-        configfile.write(u"setup_salt,data,hex2bin\n")
-        configfile.write(u"setup_verifier,data,hex2bin\n")
+            if not hap_setup_found:
+                configfile.write("hap_setup,namespace,\n")
 
-        valuesfile_writer = csv.writer(valuesfile, delimiter=',')
-        valuesfile_writer.writerow(keys_in_values_file)
-        for data in homekit_data:
-            valuesfile_writer.writerow(data)
-        
-        configfile.close()
-        valuesfile.close()
-   
-        return target_config_file,target_values_file
+            configfile.write("setup_id,data,binary\n")
+            configfile.write("setup_salt,data,hex2bin\n")
+            configfile.write("setup_verifier,data,hex2bin\n")
+
+        with open(target_values_file, 'w', newline='') as valuesfile:
+            valuesfile_writer = csv.writer(valuesfile, delimiter=',')
+            valuesfile_writer.writerow(keys_in_values_file)
+            for data in homekit_data:
+                valuesfile_writer.writerow(data)
+
+        return target_config_file, target_values_file
 
     except Exception as std_err:
         print(std_err)
     except:
         raise
-
 
 def salt_vkey_gen(setup_code_created):
     """ Generate a Salt and Verification Key for each setup code generated
@@ -604,7 +599,7 @@ def main():
             for config_data in config_file_reader:
                 for data in config_data:
                     empty_line = data.strip()
-                    if empty_line is '':
+                    if empty_line == '':
                         is_empty_line = True
                     else:
                         is_empty_line = False
@@ -639,7 +634,7 @@ def main():
             for values_data in values_file_reader:
                 for data in values_data:
                     empty_line = data.strip()
-                    if empty_line is '':
+                    if empty_line == '':
                         is_empty_line = True
                     else:
                         is_empty_line = False
